@@ -9,22 +9,30 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  background: #000;
   overflow: hidden;
 }
 
-/* ---------------- Slider ---------------- */
-.slider {
-  display: flex;
-  width: 300%;
+/* Container utama untuk membatasi view */
+.viewport {
+  width: 100vw;
   height: 100vh;
-  transition: transform 1s ease-in-out;
+  overflow: hidden;
+  position: relative;
 }
 
-/* ---------------- Slides ---------------- */
+/* Slider yang akan bergeser ke kiri/kanan */
+.slider {
+  display: flex;
+  width: 300%; /* Karena ada 3 slide */
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* Setiap Slide */
 .slide {
   width: 100vw;
   height: 100vh;
-  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,222 +41,171 @@ body {
   color: white;
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.slide.active { opacity: 1; }
-
-/* ---------------- Background ---------------- */
-.slide1 {
-  background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg') center/cover no-repeat;
-}
-.slide2 {
-  background:
-    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg') center/cover no-repeat;
-}
-.slide3 {
-  background:
-    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg') center/cover no-repeat;
+/* Overlay agar teks mudah dibaca */
+.slide::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-/* ---------------- Content ---------------- */
-.content { max-width: 400px; z-index: 2; }
+.slide1 { background-image: url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg'); }
+.slide2 { background-image: url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg'); }
+.slide3 { background-image: url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg'); }
 
-/* ---------------- Glow Text ---------------- */
+.content, .content-row {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
 .glow {
   font-size: 28px;
-  text-shadow: 0 0 5px #ffb6ff,
-               0 0 15px #ff80ff;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: slideUp 0.8s forwards;
+  text-shadow: 0 0 10px #ffb6ff, 0 0 20px #ff80ff;
+  margin-bottom: 15px;
 }
 
-@keyframes slideUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ---------------- Foto ---------------- */
 .photo {
   width: 230px;
   border-radius: 20px;
-  margin: 20px 0;
+  margin: 15px auto;
   box-shadow: 0 0 25px rgba(255, 150, 255, 0.6);
-  transition: 0.5s ease;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+  display: block;
 }
 
-@keyframes fadeIn { to { opacity: 1; } }
-
-/* ---------------- Foto + Text samping ---------------- */
-.content-row {
+/* Navigasi Tombol */
+.controls {
+  position: fixed;
+  bottom: 30px;
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 20px;
+  z-index: 1000;
 }
 
-.content-row .photo { width: 180px; }
-.content-row .text { max-width: 300px; text-align: left; }
-
-/* ---------------- Tombol Slide ---------------- */
-.controls {
-  position: fixed; /* fixed biar selalu terlihat */
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  z-index: 999; /* di atas semua layer */
-}
-
-button {
-  padding: 12px 22px;
-  border-radius: 25px;
+button.nav-btn {
+  padding: 15px 25px;
+  border-radius: 50px;
   border: none;
-  margin: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  color: white;
+  font-size: 20px;
   cursor: pointer;
-  background: rgba(255,255,255,0.6); /* kontras */
-  color: black; /* terlihat di background gelap */
-  font-weight: bold;
-  transition: 0.3s ease;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.3);
 }
-button:hover { background: rgba(255,255,255,0.9); }
 
-/* ---------------- Bunga jatuh ---------------- */
-.flower {
-  position: absolute;
-  top: -10px;
-  font-size: 18px;
-  animation: fall linear infinite;
+button.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
 }
-@keyframes fall { to { transform: translateY(110vh); } }
 
-/* ---------------- Tombol Musik ---------------- */
+/* Musik & Bunga */
 .music-controls {
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 999;
+  z-index: 1000;
 }
-.music-controls button {
-  padding: 10px 15px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255,255,255,0.5);
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-.music-controls button:hover { background: rgba(255,255,255,0.8); }
 
-/* ---------------- Responsive ---------------- */
+.flower {
+  position: absolute;
+  top: -10px;
+  z-index: 5;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
 @media (max-width: 600px) {
-  .content-row { flex-direction: column; text-align: center; gap: 15px; }
-  .content-row .photo { width: 80%; max-width: 220px; }
-  .content-row .text { max-width: 90%; text-align: center; }
-  .slide { padding: 15px; }
-  .flower { font-size: 14px; }
+  .content-row { flex-direction: column; }
+  .photo { width: 200px; }
+  .glow { font-size: 22px; }
 }
 </style>
 </head>
-
 <body>
 
-<div class="slider" id="slider">
-
-  <!-- Slide 1 -->
-  <div class="slide slide1 active">
-    <div class="content">
-      <h1 class="glow">HII MYY LOVEEE🤍</h1>
-      <img src="https://i.ibb.co.com/QjFQL1PD/Whats-App-Image-2026-02-14-at-19-08-54.jpg" class="photo">
-      <p>I MADEE THISS SPECIALL JUSTT FORR UU BABEEE 💖</p>
+<div class="viewport">
+  <div class="slider" id="mainSlider">
+    
+    <div class="slide slide1">
+      <div class="content">
+        <h1 class="glow">HII MYY LOVEEE🤍</h1>
+        <img src="https://i.ibb.co.com/QjFQL1PD/Whats-App-Image-2026-02-14-at-19-08-54.jpg" class="photo">
+        <p>I MADEE THISS SPECIALL JUSTT FORR UU BABEEE 💖</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Slide 2 -->
-  <div class="slide slide2">
-    <div class="content-row">
-      <img src="https://i.ibb.co.com/B5rd77Ft/Whats-App-Image-2026-02-14-at-18-44-52.jpg" class="photo">
-      <div class="text">
+    <div class="slide slide2">
+      <div class="content">
+        <img src="https://i.ibb.co.com/B5rd77Ft/Whats-App-Image-2026-02-14-at-18-44-52.jpg" class="photo">
         <h1 class="glow">HAPPYYY VALENTINEEEEEEEE 🌹</h1>
-        <p>Maybe I can't be perfect for you, but I will always try to love you and be a better man for you. As long as the sun still shines brightly and we are still together, then I will continue to love you as long as it can be my love, it was such a blessing, you are one of the forms of the realization of my prayers all this time and i will protect that sweet smile of yours</p>
+        <p style="font-size: 14px; padding: 0 20px;">Maybe I can't be perfect for you, but I will always try to love you and be a better man for you...</p>
       </div>
     </div>
-  </div>
 
-  <!-- Slide 3 -->
-  <div class="slide slide3">
-    <div class="content-row">
-      <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" class="photo">
-      <div class="text">
-        <h1 class="glow">terimakasih dan permintaan maafku 🤍</h1>
-        <p>Thank you for choosing me as your partner, accompanying you and loving you is the thing I am most grateful for in my life, I love you so much, I never thought I would be loved and love someone this deeply, I also want to apologize if sometimes I don't understand you, sometimes I do stupid things and I apologize for that, I love you fathimah. I will continue to love you.</p>
+    <div class="slide slide3">
+      <div class="content">
+        <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" class="photo">
+        <h1 class="glow">Terimakasih & Maafku 🤍</h1>
+        <p style="font-size: 14px; padding: 0 20px;">Thank you for choosing me... I love you Fathimah.</p>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
-<!-- Tombol Next/Prev -->
 <div class="controls">
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
+  <button class="nav-btn" onclick="moveSlide(-1)">⬅</button>
+  <button class="nav-btn" onclick="moveSlide(1)">➡</button>
 </div>
-
-<!-- Musik Valentine -->
-<audio id="valentineMusic" loop>
-  <source src="https://files.catbox.moe/0pdv8y.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 
 <div class="music-controls">
-  <button onclick="toggleMusic()">▶️ Play / ⏸️ Pause</button>
+  <button class="nav-btn" style="font-size: 14px;" onclick="toggleMusic()">🎵 Play/Pause</button>
 </div>
 
+<audio id="valentineMusic" loop>
+  <source src="https://files.catbox.moe/0pdv8y.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-let index = 0;
-const slides = document.querySelectorAll(".slide");
+let currentIndex = 0;
+const slider = document.getElementById("mainSlider");
+const totalSlides = 3;
 
-function showSlide(i) {
-  slides.forEach((slide, idx) => {
-    slide.classList.remove("active");
-    if(idx === i) slide.classList.add("active");
-  });
+function moveSlide(direction) {
+  currentIndex += direction;
+  
+  // Supaya tidak bablas
+  if (currentIndex < 0) currentIndex = 0;
+  if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
+  
+  // Geser slider berdasarkan persentase
+  slider.style.transform = `translateX(-${(currentIndex * 100) / totalSlides}%)`;
 }
 
-function next() {
-  if(index < slides.length - 1) index++;
-  showSlide(index);
-}
-
-function prev() {
-  if(index > 0) index--;
-  showSlide(index);
-}
-
-/* 🌸 Generate bunga jatuh */
 function createFlower() {
   const flower = document.createElement("div");
-  flower.classList.add("flower");
+  flower.className = "flower";
   flower.innerHTML = "🌸";
   flower.style.left = Math.random() * 100 + "vw";
-  flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+  flower.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  flower.style.opacity = Math.random();
   document.body.appendChild(flower);
-  setTimeout(() => flower.remove(), 8000);
+  setTimeout(() => flower.remove(), 7000);
 }
+setInterval(createFlower, 500);
 
-/* Kurangi bunga untuk HP */
-if(window.innerWidth > 600) setInterval(createFlower, 400);
-else setInterval(createFlower, 800);
-
-/* Musik Valentine */
 const music = document.getElementById("valentineMusic");
 function toggleMusic() {
   if(music.paused) music.play();
