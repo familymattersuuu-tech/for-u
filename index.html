@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for the love of my live 🤍</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f0f1a, #1c1c2e);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 40px 20px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.show {
+    opacity: 1;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+p {
+    max-width: 600px;
+    margin: 20px auto;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+img {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.typing {
+    border-right: 2px solid white;
+    display: inline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container show" id="start">
+    <h1>Hi 🤍</h1>
+    <p>I made something small for you...</p>
+    <button onclick="openLetter()">Open</button>
+</div>
+
+<div class="container hidden" id="page2">
+    <h1>Happy Valentine 🌹</h1>
+
+    
+    <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" alt="ur cute pretty and magnificent pic">
+
+    <p id="text" class="typing"></p>
+</div>
+
+<audio id="music" loop>
+    
+    <source src="https://files.catbox.moe/zjq8ek.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter() {
+    document.getElementById("start").classList.add("hidden");
+    const page2 = document.getElementById("page2");
+    page2.classList.remove("hidden");
+    setTimeout(() => page2.classList.add("show"), 100);
+    document.getElementById("music").play();
+    typeText();
+}
+
+const message = "Aku mungkin tidak selalu sempurna dalam memahami kamu. Kadang aku kurang peka, kadang terlambat mengerti situasi. Tapi satu hal yang tidak pernah setengah-setengah adalah perasaanku. Dari sekian banyak doa yang pernah aku panjatkan, mungkin kamu adalah salah satu jawaban terindahnya. Terima kasih sudah tetap ada, terima kasih sudah sabar, dan terima kasih sudah menjadi bagian dari hidupku. 🤍";
+
+let i = 0;
+function typeText() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeText, 45);
+    }
+}
+</script>
+
+</body>
+</html>
