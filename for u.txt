@@ -1,0 +1,37 @@
+I know sometimes I don't understand you, but believe me, I will always try to be the best for you, darling.
+
+    
+    <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" alt="ur super pretty cute magnificent pic">
+
+    <p id="text" class="typing"></p>
+</div>
+
+<audio id="music" loop>
+   
+    <source src="https://files.catbox.moe/zjq8ek.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter() {
+    document.getElementById("start").classList.add("hidden");
+    const page2 = document.getElementById("page2");
+    page2.classList.remove("hidden");
+    setTimeout(() => page2.classList.add("show"), 100);
+    document.getElementById("music").play();
+    typeText();
+}
+
+const message = "I know sometimes I don't understand you, but believe me, I will always try to be the best for you, darling. 🤍";
+
+let i = 0;
+function typeText() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeText, 45);
+    }
+}
+</script>
+
+</body>
+</html>
