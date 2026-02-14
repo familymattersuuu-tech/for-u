@@ -5,13 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You My Love 💖</title>
 <style>
-body {
-  margin:0;
-  font-family:'Segoe UI', sans-serif;
-  overflow:hidden;
-}
+body { margin:0; font-family:'Segoe UI', sans-serif; overflow:hidden; }
 
-/* Semua slide tumpuk, position absolute */
+/* Semua slide tumpuk */
 .slide {
   position:absolute;
   top:0;
@@ -44,60 +40,29 @@ body {
 
 /* Foto + content */
 .content { max-width:400px; z-index:2; }
-.content-row {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-}
+.content-row { display:flex; align-items:center; justify-content:center; gap:20px;}
 .content-row .photo { width:180px; border-radius:20px; box-shadow:0 0 25px rgba(255,150,255,0.6);}
 .content-row .text { max-width:300px; text-align:left; color:white; }
 
 /* Tombol */
-.controls {
-  position:absolute;
-  bottom:25px;
-  width:100%;
-  text-align:center;
-}
+.controls { position:absolute; bottom:25px; width:100%; text-align:center; }
 button {
-  padding:12px 22px;
-  border-radius:25px;
-  border:none;
-  margin:5px;
-  cursor:pointer;
-  background: rgba(255,255,255,0.4);
-  color:white;
-  font-weight:bold;
-  transition:0.3s;
+  padding:12px 22px; border-radius:25px; border:none; margin:5px; cursor:pointer;
+  background: rgba(255,255,255,0.4); color:white; font-weight:bold; transition:0.3s;
 }
 button:hover { background: rgba(255,255,255,0.7); }
 
 /* Bunga jatuh */
-.flower {
-  position:absolute;
-  top:-10px;
-  font-size:18px;
-  animation:fall linear infinite;
-}
+.flower { position:absolute; top:-10px; font-size:18px; animation:fall linear infinite; }
 @keyframes fall { to { transform:translateY(110vh); } }
 
 /* Musik */
 .music-controls {
-  position:fixed;
-  top:20px;
-  right:20px;
-  z-index:999;
+  position:fixed; top:20px; right:20px; z-index:999;
 }
 .music-controls button {
-  padding:10px 15px;
-  border-radius:20px;
-  border:none;
-  background: rgba(255,255,255,0.5);
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
+  padding:10px 15px; border-radius:20px; border:none; background: rgba(255,255,255,0.5);
+  color:#000; font-weight:bold; cursor:pointer; transition:0.3s;
 }
 .music-controls button:hover { background: rgba(255,255,255,0.8); }
 
@@ -105,4 +70,87 @@ button:hover { background: rgba(255,255,255,0.7); }
 @media(max-width:600px){
   .content-row { flex-direction:column; text-align:center; gap:15px;}
   .content-row .photo { width:80%; max-width:220px;}
-  .content-row .
+  .content-row .text { max-width:90%; text-align:center;}
+  .flower { font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide slide1 active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('URL_GAMBAR_BG1') center/cover no-repeat;">
+  <div class="content">
+    <h1 class="glow">Hi My Love 🤍</h1>
+    <img src="URL_GAMBAR_FOTO1" class="photo">
+    <p>This is specially made for you 💖</p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide slide2" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('URL_GAMBAR_BG2') center/cover no-repeat;">
+  <div class="content-row">
+    <img src="URL_GAMBAR_FOTO2" class="photo">
+    <div class="text">
+      <h1 class="glow">Happy Valentine 🌹</h1>
+      <p>Maybe I can't be perfect for you, but I will always try to love you and protect your smile. You are one of my prayers realized.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide slide3" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('URL_GAMBAR_BG3') center/cover no-repeat;">
+  <div class="content-row">
+    <img src="URL_GAMBAR_FOTO3" class="photo">
+    <div class="text">
+      <h1 class="glow">Thank You & Sorry 🤍</h1>
+      <p>Thank you for being with me. I apologize if sometimes I don't understand you. I will always love you, Fathimah.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Controls -->
+<div class="controls">
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
+</div>
+
+<!-- Musik -->
+<audio id="valentineMusic" loop>
+  <source src="URL_MUSIK" type="audio/mpeg">
+</audio>
+<div class="music-controls">
+  <button onclick="toggleMusic()">▶️ Play / ⏸️ Pause</button>
+</div>
+
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide(i){
+  slides.forEach(s=>s.classList.remove("active"));
+  slides[i].classList.add("active");
+}
+
+function next(){ if(index<slides.length-1) index++; showSlide(index);}
+function prev(){ if(index>0) index--; showSlide(index);}
+
+/* Bunga jatuh */
+function createFlower(){
+  const f=document.createElement("div");
+  f.classList.add("flower");
+  f.innerHTML="🌸";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),8000);
+}
+if(window.innerWidth>600) setInterval(createFlower,400);
+else setInterval(createFlower,800);
+
+/* Musik */
+const music=document.getElementById("valentineMusic");
+function toggleMusic(){ if(music.paused) music.play(); else music.pause();}
+</script>
+
+</body>
+</html>
