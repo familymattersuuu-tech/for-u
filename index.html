@@ -1,155 +1,252 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You My Love 💖</title>
+<title>for uu myy loveee 💖</title>
+
 <style>
-body { margin:0; font-family:'Segoe UI', sans-serif; overflow:hidden; }
-
-/* Semua slide tumpuk */
-.slide {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-  padding:20px;
-  box-sizing:border-box;
-  opacity:0;
-  transition:opacity 0.8s ease-in-out;
-  background-size:cover;
-  background-position:center;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
-.slide.active { opacity:1; z-index:2; }
 
-/* Glow text */
+/* ---------------- Slider ---------------- */
+.slider {
+  display: flex;
+  width: 300%;
+  height: 100vh;
+  transition: transform 1s ease-in-out;
+}
+
+/* ---------------- Slides ---------------- */
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active { opacity: 1; }
+
+/* ---------------- Background ---------------- */
+.slide1 {
+  background:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg') center/cover no-repeat;
+}
+.slide2 {
+  background:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg') center/cover no-repeat;
+}
+.slide3 {
+  background:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('https://i.ibb.co.com/BKts1bP6/Whats-App-Image-2026-02-14-at-19-03-53.jpg) center/cover no-repeat;
+}
+
+/* ---------------- Content ---------------- */
+.content { max-width: 400px; z-index: 2; }
+
+/* ---------------- Glow Text ---------------- */
 .glow {
-  font-size:28px;
-  text-shadow:0 0 5px #ffb6ff,0 0 15px #ff80ff;
-  opacity:0;
-  transform:translateY(30px);
+  font-size: 28px;
+  text-shadow: 0 0 5px #ffb6ff,
+               0 0 15px #ff80ff;
+  opacity: 0;
+  transform: translateY(30px);
   animation: slideUp 0.8s forwards;
 }
-@keyframes slideUp { to {opacity:1; transform:translateY(0);} }
 
-/* Foto + content */
-.content { max-width:400px; z-index:2; }
-.content-row { display:flex; align-items:center; justify-content:center; gap:20px;}
-.content-row .photo { width:180px; border-radius:20px; box-shadow:0 0 25px rgba(255,150,255,0.6);}
-.content-row .text { max-width:300px; text-align:left; color:white; }
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 
-/* Tombol */
-.controls { position:absolute; bottom:25px; width:100%; text-align:center; }
+/* ---------------- Foto ---------------- */
+.photo {
+  width: 230px;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 0 25px rgba(255, 150, 255, 0.6);
+  transition: 0.5s ease;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ---------------- Foto + Text samping ---------------- */
+.content-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.content-row .photo { width: 180px; }
+.content-row .text { max-width: 300px; text-align: left; }
+
+/* ---------------- Tombol Slide ---------------- */
+.controls {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  text-align: center;
+}
+
 button {
-  padding:12px 22px; border-radius:25px; border:none; margin:5px; cursor:pointer;
-  background: rgba(255,255,255,0.4); color:white; font-weight:bold; transition:0.3s;
+  padding: 12px 22px;
+  border-radius: 25px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.4);
+  color: white;
+  font-weight: bold;
+  transition: 0.3s ease;
 }
 button:hover { background: rgba(255,255,255,0.7); }
 
-/* Bunga jatuh */
-.flower { position:absolute; top:-10px; font-size:18px; animation:fall linear infinite; }
-@keyframes fall { to { transform:translateY(110vh); } }
+/* ---------------- Bunga jatuh ---------------- */
+.flower {
+  position: absolute;
+  top: -10px;
+  font-size: 18px;
+  animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(110vh); } }
 
-/* Musik */
+/* ---------------- Tombol Musik ---------------- */
 .music-controls {
-  position:fixed; top:20px; right:20px; z-index:999;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
 }
 .music-controls button {
-  padding:10px 15px; border-radius:20px; border:none; background: rgba(255,255,255,0.5);
-  color:#000; font-weight:bold; cursor:pointer; transition:0.3s;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,255,255,0.5);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 .music-controls button:hover { background: rgba(255,255,255,0.8); }
 
-/* Responsive */
-@media(max-width:600px){
-  .content-row { flex-direction:column; text-align:center; gap:15px;}
-  .content-row .photo { width:80%; max-width:220px;}
-  .content-row .text { max-width:90%; text-align:center;}
-  .flower { font-size:14px;}
+/* ---------------- Responsive ---------------- */
+@media (max-width: 600px) {
+  .content-row { flex-direction: column; text-align: center; }
+  .content-row .photo { width: 200px; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- Slide 1 -->
-<div class="slide slide1 active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('URL_GAMBAR_BG1') center/cover no-repeat;">
-  <div class="content">
-    <h1 class="glow">Hi My Love 🤍</h1>
-    <img src="URL_GAMBAR_FOTO1" class="photo">
-    <p>This is specially made for you 💖</p>
-  </div>
-</div>
+<div class="slider" id="slider">
 
-<!-- Slide 2 -->
-<div class="slide slide2" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('URL_GAMBAR_BG2') center/cover no-repeat;">
-  <div class="content-row">
-    <img src="URL_GAMBAR_FOTO2" class="photo">
-    <div class="text">
-      <h1 class="glow">Happy Valentine 🌹</h1>
-      <p>Maybe I can't be perfect for you, but I will always try to love you and protect your smile. You are one of my prayers realized.</p>
+  <!-- Slide 1 -->
+  <div class="slide slide1 active">
+    <div class="content">
+      <h1 class="glow">HII MYY LOVEEE🤍</h1>
+      <img src="https://i.ibb.co.com/QjFQL1PD/Whats-App-Image-2026-02-14-at-19-08-54.jpg" class="photo">
+      <p>I MADEE THISS SPECIALL JUSTT FORR UU BABEEE 💖</p>
     </div>
   </div>
-</div>
 
-<!-- Slide 3 -->
-<div class="slide slide3" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('URL_GAMBAR_BG3') center/cover no-repeat;">
-  <div class="content-row">
-    <img src="URL_GAMBAR_FOTO3" class="photo">
-    <div class="text">
-      <h1 class="glow">Thank You & Sorry 🤍</h1>
-      <p>Thank you for being with me. I apologize if sometimes I don't understand you. I will always love you, Fathimah.</p>
+  <!-- Slide 2 -->
+  <div class="slide slide2">
+    <div class="content-row">
+      <img src="https://i.ibb.co.com/B5rd77Ft/Whats-App-Image-2026-02-14-at-18-44-52.jpg" class="photo">
+      <div class="text">
+        <h1 class="glow">HAPPYYY VALENTINEEEEEEEE 🌹</h1>
+        <p>Maybe I can't be perfect for you, but I will always try to love you and be a better man for you. As long as the sun still shines brightly and we are still together, then I will continue to love you as long as it can be my love, it was such a blessing, you are one of the forms of the realization of my prayers all this time and i will protect that sweet smile of yours</p>
+      </div>
     </div>
   </div>
+
+  <!-- Slide 3 -->
+  <div class="slide slide3">
+    <div class="content-row">
+      <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" class="photo">
+      <div class="text">
+        <h1 class="glow">terimakasih dan permintaan maafku  🤍</h1>
+        <p>Thank you for choosing me as your partner, accompanying you and loving you is the thing I am most grateful for in my life, I love you so much, I never thought I would be loved and love someone this deeply, I also want to apologize if sometimes I don't understand you, sometimes I do stupid things and I apologize for that, I love you fathimah. I will continue to love you.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- Controls -->
+<!-- Tombol Next/Prev -->
 <div class="controls">
   <button onclick="prev()">⬅</button>
   <button onclick="next()">➡</button>
 </div>
 
-<!-- Musik -->
+<!-- Musik Valentine -->
 <audio id="valentineMusic" loop>
-  <source src="URL_MUSIK" type="audio/mpeg">
+  <source src="https://files.catbox.moe/0pdv8y.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
+
 <div class="music-controls">
   <button onclick="toggleMusic()">▶️ Play / ⏸️ Pause</button>
 </div>
 
 <script>
-let slides = document.querySelectorAll(".slide");
 let index = 0;
+const slides = document.querySelectorAll(".slide");
 
-function showSlide(i){
-  slides.forEach(s=>s.classList.remove("active"));
-  slides[i].classList.add("active");
+function showSlide(i) {
+  slides.forEach((slide, idx) => {
+    slide.classList.remove("active");
+    if(idx === i) slide.classList.add("active");
+  });
 }
 
-function next(){ if(index<slides.length-1) index++; showSlide(index);}
-function prev(){ if(index>0) index--; showSlide(index);}
-
-/* Bunga jatuh */
-function createFlower(){
-  const f=document.createElement("div");
-  f.classList.add("flower");
-  f.innerHTML="🌸";
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),8000);
+function next() {
+  if(index < slides.length - 1) index++;
+  showSlide(index);
 }
-if(window.innerWidth>600) setInterval(createFlower,400);
-else setInterval(createFlower,800);
 
-/* Musik */
-const music=document.getElementById("valentineMusic");
-function toggleMusic(){ if(music.paused) music.play(); else music.pause();}
+function prev() {
+  if(index > 0) index--;
+  showSlide(index);
+}
+
+/* 🌸 Generate bunga jatuh */
+function createFlower() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+  flower.innerHTML = "🌸";
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(flower);
+  setTimeout(() => flower.remove(), 8000);
+}
+setInterval(createFlower, 400);
+
+/* Musik Valentine */
+const music = document.getElementById("valentineMusic");
+function toggleMusic() {
+  if(music.paused) music.play();
+  else music.pause();
+}
 </script>
 
 </body>
