@@ -1,118 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>for the love of my live 🤍</title>
+<title>For You 🌸</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f0f1a, #1c1c2e);
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: white;
+  overflow: hidden;
 }
 
-.container {
-    padding: 40px 20px;
-    opacity: 0;
-    transition: opacity 1.5s ease;
+.slider {
+  display: flex;
+  width: 300%;
+  transition: transform 0.6s ease-in-out;
 }
 
-.show {
-    opacity: 1;
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
 }
 
-h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+.glow {
+  font-size: 28px;
+  text-shadow:
+    0 0 5px #ff9ff3,
+    0 0 10px #ff9ff3,
+    0 0 20px #f368e0;
 }
 
 p {
-    max-width: 600px;
-    margin: 20px auto;
-    line-height: 1.8;
-    font-size: 17px;
+  max-width: 400px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+/* 🌸 Bunga di sekitar text */
+.corner-flower {
+  position: absolute;
+  font-size: 25px;
+  opacity: 0.8;
+}
+
+.top-left { top: 20px; left: 20px; }
+.top-right { top: 20px; right: 20px; }
+.bottom-left { bottom: 20px; left: 20px; }
+.bottom-right { bottom: 20px; right: 20px; }
+
+/* Tombol */
+.controls {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
 }
 
 button {
-    padding: 12px 28px;
-    border: none;
-    border-radius: 30px;
-    background: white;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 25px;
-    transition: 0.3s;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
 }
 
-button:hover {
-    transform: scale(1.05);
+/* 🌸 Bunga jatuh */
+.falling {
+  position: absolute;
+  top: -10px;
+  font-size: 18px;
+  animation: fall linear infinite;
 }
 
-img {
-    width: 220px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
-}
-
-.hidden {
-    display: none;
-}
-
-.typing {
-    border-right: 2px solid white;
-    display: inline;
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container show" id="start">
-    <h1>Hi 🤍</h1>
-    <p>I made something small for you...</p>
-    <button onclick="openLetter()">Open</button>
+<div class="slider" id="slider">
+
+  <div class="slide">
+    <div class="corner-flower top-left">🌸</div>
+    <div class="corner-flower top-right">🌸</div>
+    <div>
+      <h1 class="glow">Hi 🤍</h1>
+      <p>Aku bikin sesuatu kecil buat kamu...</p>
+    </div>
+    <div class="corner-flower bottom-left">🌸</div>
+    <div class="corner-flower bottom-right">🌸</div>
+  </div>
+
+  <div class="slide">
+    <div class="corner-flower top-left">🌹</div>
+    <div class="corner-flower top-right">🌹</div>
+    <div>
+      <h1 class="glow">Happy Valentine</h1>
+      <p>Aku mungkin tidak selalu sempurna, tapi perasaanku selalu sungguh-sungguh untuk kamu.</p>
+    </div>
+    <div class="corner-flower bottom-left">🌹</div>
+    <div class="corner-flower bottom-right">🌹</div>
+  </div>
+
+  <div class="slide">
+    <div class="corner-flower top-left">🌸</div>
+    <div class="corner-flower top-right">🌸</div>
+    <div>
+      <h1 class="glow">Terima Kasih 🤍</h1>
+      <p>Karena dari semua kemungkinan di dunia ini, aku bersyukur bisa kenal kamu.</p>
+    </div>
+    <div class="corner-flower bottom-left">🌸</div>
+    <div class="corner-flower bottom-right">🌸</div>
+  </div>
+
 </div>
 
-<div class="container hidden" id="page2">
-    <h1>Happy Valentine 🌹</h1>
-
-    
-    <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" alt="ur cute pretty and magnificent pic">
-
-    <p id="text" class="typing"></p>
+<div class="controls">
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
 </div>
-
-<audio id="music" loop>
-    
-    <source src="https://files.catbox.moe/zjq8ek.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-function openLetter() {
-    document.getElementById("start").classList.add("hidden");
-    const page2 = document.getElementById("page2");
-    page2.classList.remove("hidden");
-    setTimeout(() => page2.classList.add("show"), 100);
-    document.getElementById("music").play();
-    typeText();
+let index = 0;
+function updateSlide() {
+  document.getElementById("slider").style.transform =
+    "translateX(" + (-index * 100) + "vw)";
+}
+function next() {
+  if (index < 2) { index++; updateSlide(); }
+}
+function prev() {
+  if (index > 0) { index--; updateSlide(); }
 }
 
-const message = "Aku mungkin tidak selalu sempurna dalam memahami kamu. Kadang aku kurang peka, kadang terlambat mengerti situasi. Tapi satu hal yang tidak pernah setengah-setengah adalah perasaanku. Dari sekian banyak doa yang pernah aku panjatkan, mungkin kamu adalah salah satu jawaban terindahnya. Terima kasih sudah tetap ada, terima kasih sudah sabar, dan terima kasih sudah menjadi bagian dari hidupku. 🤍";
+/* 🌸 Bunga jatuh */
+function createFlower() {
+  const flower = document.createElement("div");
+  flower.classList.add("falling");
+  flower.innerHTML = "🌸";
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(flower);
 
-let i = 0;
-function typeText() {
-    if (i < message.length) {
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeText, 45);
-    }
+  setTimeout(() => flower.remove(), 8000);
 }
+setInterval(createFlower, 400);
 </script>
 
 </body>
