@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for uu myy loveee 💖</title>
 
 <style>
@@ -10,39 +10,35 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
-  background: #000;
 }
 
 /* ---------------- Slider ---------------- */
 .slider {
-  position: relative;
-  width: 100vw;
+  display: flex;
+  width: 300%;
   height: 100vh;
+  transition: transform 1s ease-in-out;
 }
 
 /* ---------------- Slides ---------------- */
 .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100vw;
   height: 100vh;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  position: relative;
   color: white;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden;
   opacity: 0;
-  z-index: 1;
-  transition: opacity 0.8s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
-.slide.active {
-  opacity: 1;
-  z-index: 2;
-}
+.slide.active { opacity: 1; }
 
 /* ---------------- Background ---------------- */
 .slide1 {
@@ -104,10 +100,11 @@ body {
 
 /* ---------------- Tombol Slide ---------------- */
 .controls {
-  position: absolute;
-  bottom: 25px;
+  position: fixed; /* fixed biar selalu terlihat */
+  bottom: 20px;
   width: 100%;
   text-align: center;
+  z-index: 999; /* di atas semua layer */
 }
 
 button {
@@ -116,12 +113,12 @@ button {
   border: none;
   margin: 5px;
   cursor: pointer;
-  background: rgba(255,255,255,0.4);
-  color: white;
+  background: rgba(255,255,255,0.6); /* kontras */
+  color: black; /* terlihat di background gelap */
   font-weight: bold;
   transition: 0.3s ease;
 }
-button:hover { background: rgba(255,255,255,0.7); }
+button:hover { background: rgba(255,255,255,0.9); }
 
 /* ---------------- Bunga jatuh ---------------- */
 .flower {
@@ -189,7 +186,7 @@ button:hover { background: rgba(255,255,255,0.7); }
   <!-- Slide 3 -->
   <div class="slide slide3">
     <div class="content-row">
-      <img src="https://i.ibb.co/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" class="photo">
+      <img src="https://i.ibb.co.com/fGTm6CqS/Whats-App-Image-2026-02-14-at-16-53-27.jpg" class="photo">
       <div class="text">
         <h1 class="glow">terimakasih dan permintaan maafku 🤍</h1>
         <p>Thank you for choosing me as your partner, accompanying you and loving you is the thing I am most grateful for in my life, I love you so much, I never thought I would be loved and love someone this deeply, I also want to apologize if sometimes I don't understand you, sometimes I do stupid things and I apologize for that, I love you fathimah. I will continue to love you.</p>
@@ -219,26 +216,20 @@ button:hover { background: rgba(255,255,255,0.7); }
 let index = 0;
 const slides = document.querySelectorAll(".slide");
 
-function showSlide(i){
-  slides.forEach((slide, idx)=>{
+function showSlide(i) {
+  slides.forEach((slide, idx) => {
     slide.classList.remove("active");
-    slide.style.opacity = 0;
-    slide.style.zIndex = 1;
-    if(idx===i){
-      slide.classList.add("active");
-      slide.style.opacity = 1;
-      slide.style.zIndex = 2;
-    }
+    if(idx === i) slide.classList.add("active");
   });
 }
 
-function next(){
-  index = (index + 1) % slides.length;
+function next() {
+  if(index < slides.length - 1) index++;
   showSlide(index);
 }
 
-function prev(){
-  index = (index - 1 + slides.length) % slides.length;
+function prev() {
+  if(index > 0) index--;
   showSlide(index);
 }
 
@@ -263,9 +254,6 @@ function toggleMusic() {
   if(music.paused) music.play();
   else music.pause();
 }
-
-/* Tampilkan slide pertama */
-showSlide(0);
 </script>
 
 </body>
